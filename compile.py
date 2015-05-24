@@ -16,20 +16,23 @@ if len( sys.argv ) < 3 :
     print "Usage:"
     print "compile.py <map_name> <tile_size>"
     print "Optionally:"
-    print "compile.py <map_name> <tile_size> <pretty> <map_dir> <output_dir>"
+    print "compile.py <map_name> <tile_size> <pretty> <prefix> <map_dir> <output_dir>"
     exit( 1 )
 
 map_name = sys.argv[ 1 ]
 tile_size = int( sys.argv[ 2 ] )
 map_dir = ""
 output_dir = ""
+prefix = ""
 pretty = False
 if len( sys.argv ) >= 4 :
     pretty = sys.argv[ 3 ]
 if len( sys.argv ) >= 5 :
-    map_dir = sys.argv[ 4 ]
+    prefix = sys.argv[ 4 ]
 if len( sys.argv ) >= 6 :
-    output_dir = sys.argv[ 5 ]
+    map_dir = sys.argv[ 5 ]
+if len( sys.argv ) >= 7 :
+    output_dir = sys.argv[ 6 ]
 
 
 array_files = []
@@ -106,7 +109,7 @@ else :
 	string_grid_json = json.dumps( data )
 
 with open( output_dir + 'compiled_' + map_name + ".js", "wb" ) as compiled_file:
-	compiled_file.write( "res." + map_name + "=" + string_grid_json )
+	compiled_file.write( prefix + string_grid_json )
 
 if output_dir != "" :
 	for file in array_files :
